@@ -3,8 +3,10 @@ const { City } = require("./City");
 class GeneticAlgorithim {
   constructor() {
     this.cities = new City().cities;
-    this.POPULATION_SIZE = 20;
-    this.GENERATIONS = 1000;
+    this.MUTATION = 1;
+    this.POPULATION_SIZE = 50;
+    this.GENERATIONS = 5000;
+    this.best;
   }
 
   createChromosome(data) {
@@ -25,11 +27,11 @@ class GeneticAlgorithim {
     return distance ? distance.time : 0;
   }
 
-  fitness(chromosome) {
-    let currentCity = chromosome[0];
+  fitness(subject) {
+    let currentCity = subject.chromosome[0];
     let totDistance = 0;
 
-    chromosome.forEach(chromo => {
+    subject.chromosome.forEach(chromo => {
       let destiny = chromo;
 
       let distance = this.getDistance(currentCity, destiny);
@@ -37,7 +39,7 @@ class GeneticAlgorithim {
 
       currentCity = destiny;
     });
-    chromosome.allDistance = totDistance;
+    subject.allDistance = totDistance;
   }
 
   rouletteWheel(population) {
@@ -57,11 +59,15 @@ class GeneticAlgorithim {
     });
 
     let random = Math.random();
+
+    this.sortPopulation(population);
     while (i < population.length && totalSum < random) {
       totalSum += population[i].probability;
       parent += 1;
       i += 1;
     }
+
+    console.log('parent ', parent);
 
     return parent;
   }
@@ -71,7 +77,7 @@ class GeneticAlgorithim {
     this.crossingGenes(firstGene, secondGene, randomGene);
     this.validateDuplicity(randomGene, firstGene, secondGene);
 
-    return [firstGene, secondGene];
+    return [{ chromosome: firstGene }, { chromosome: secondGene }];
   }
 
   crossingGenes(firstGene, secondGene, randomGene) {
@@ -104,10 +110,34 @@ class GeneticAlgorithim {
     return -1;
   }
 
+  transform(chromosomeList) {
+    const min = Math.ceil(1);
+    const max = Math.floor(100);
+    const rand = Math.floor(Math.random() * (max - min));
+
+    if (rand <= this.MUTATION) {
+      const firstGene = Math.ceil(Math.random() * chromosomeList.length - 1);
+      const secondGene = Math.ceil(Math.random() * chromosomeList.length - 1);
+      const waiting = chromosomeList[firstGene];
+      chromosomeList[firstGene] = chromosomeList[secondGene];
+      chromosomeList[secondGene] = waiting;
+    }
+    return { chromosome: chromosomeList };
+  }
+
+  sortPopulation(population) {
+    return population.sort((a, b) =>
+      a.allDistance < b.allDistance ? -1 : a.allDistance > b.allDistance ? 1 : 0
+    );
+  }
+
+
   initialize() {
     let population = [];
+    let subject;
     while (population.length < this.POPULATION_SIZE) {
-      population.push(this.createChromosome(this.cities));
+      subject = { chromosome: this.createChromosome(this.cities) };
+      population.push(subject);
     }
 
     population.forEach(element => {
@@ -116,9 +146,8 @@ class GeneticAlgorithim {
 
     //
 
-    //for nas geracoes
-    // for (let i = 1; i < this.GENERATIONS; i++) {
-    for (let i = 1; i < 100; i++) {
+    this.sortPopulation(population);
+    for (let i = 1; i < this.GENERATIONS; i++) {
       let anotherPopulation = [];
       for (let index = 0; index < this.POPULATION_SIZE; index += 2) {
         //roleta
@@ -126,38 +155,49 @@ class GeneticAlgorithim {
         let secondParent = this.rouletteWheel(population);
 
         let childs = this.crossover(
-          population[firstParent],
-          population[secondParent]
+          population[firstParent].chromosome,
+          population[secondParent].chromosome
         );
 
-        anotherPopulation = [...anotherPopulation, childs[0]];
-        anotherPopulation = [...anotherPopulation, childs[1]];
+        anotherPopulation = [...anotherPopulation, this.transform(childs[0].chromosome)];
+        anotherPopulation = [...anotherPopulation, this.transform(childs[1].chromosome)];
       }
+
       population = [];
       population = anotherPopulation;
 
       population.forEach(element => {
         this.fitness(element);
       });
+
+      this.sortPopulation(population);
+      console.log("best ", population);
     }
 
-    console.log("population ", population);
 
-    let min = 999;
+    let bestWay = population[0];
+
     population.forEach(pop => {
-      if (pop.allDistance < min) {
-        min = pop.allDistance;
+      if (pop.allDistance <= bestWay.allDistance) {
+        this.best = pop;
       }
     });
 
-    console.log("min ", min);
 
-    population = population.map((a, b) =>
-      a.allDistance < b.allDistance ? -1 : a.allDistance > b.allDistance ? 1 : 0
-    );
+
+    console.log("best ", this.best);
+
+    // const greatSolucion = population.find(p => p.allDistance === bestWay);
+    // console.log("greatSolucion ", greatSolucion);
+
+    // population.forEach(p => {
+    //   if (bestWay.allDistance < this.best) {
+    //     this.best = bestWay.allDistance;
+    //   }
+    // })
     // console.log(
-    //   `Generation: ${0} | Time: ${population[0].allDistance} | Chromssome: ${
-    //     population[0]
+    //   `Generation: ${this.GENERATIONS} | Time: ${this.best} | Chromssome: ${
+    //     bestWay
     //   }`
     // );
   }
