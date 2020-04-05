@@ -23,7 +23,7 @@
 
 .grid .items {
   display: grid;
-  grid-template-columns: 65% 25% 5% 5%;
+  grid-template-columns: 45% 45% 10%;
   grid-row-gap: 10px;
   padding: 10px;
   font-size: 16px;
@@ -37,6 +37,10 @@
   }
 }
 
-.grid .items svg {
-  cursor: pointer;
+.grid .items input {
+  height: 30px;
+  width: 70%;
+  background: #f1f1f1;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }

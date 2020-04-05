@@ -4,46 +4,44 @@ import City from "../City";
 
 import "./styles.css";
 
-export default function TodoList({ filter }) {
-  // const [todoList, setTodoList] = useContext(TodoContext);
-  const [todoFilter, setTodoFilter] = useState();
+const CityController = require("../../api/controller/CityController");
 
-  /**
-   * Utilizado useEffect para efetuar filtro de TODO através da
-   * Escolha da combo
-   */
-  // useEffect(() => {
-  //   setTodoFilter(todoList);
-  //   if (filter && filter !== "T") {
-  //     const newTodoFilter = todoList.filter((todo) => todo.done === filter);
-  //     setTodoFilter(newTodoFilter);
-  //   }
-  // }, [filter, todoList]);
+export default function CityList({ filter }) {
+  const [routes, setRoutes] = useState([]);
+  const [currentCity, setCurrentCity] = useState({});
 
-  /**
-   * Método de exlusão de TODO, salvando no localStorage
-   */
-  function exclude(data) {
-    // const newList = todoList.filter((todo) => todo.id !== data.id);
-    // setTodoList(newList);
-    // localStorage.setItem("todoList", JSON.stringify(newList));
+  useEffect(() => {
+    const cities = JSON.parse(localStorage.getItem("cities"));
 
-    toast.success("Tarefa deletada com sucesso");
+    if (cities) {
+      const newRoutes = cities.filter((city) => city.id !== filter);
+      setRoutes(newRoutes);
+      const current = cities.find((city) => city.id === filter);
+      setCurrentCity(current);
+    }
+  }, [filter]);
+
+  function handleDistance(data) {
+    CityController.update(data);
   }
 
   return (
-    <div data-testid="data-grid" className="grid">
-      <div data-testid="data-header" className="header">
+    <div className="grid">
+      <div className="header">
         <div>Origem</div>
         <div>Destino</div>
         <div>Distância</div>
       </div>
-      <div data-testid="data-items" className="items">
-        {todoFilter
-          ? todoFilter.map((todo) => (
-              <City key={todo.id} data={todo} exclude={exclude} />
-            ))
-          : ""}
+      <div className="items">
+        {routes &&
+          routes.map((route) => (
+            <City
+              key={route.id}
+              current={currentCity}
+              destiny={route}
+              addDistance={handleDistance}
+            />
+          ))}
       </div>
     </div>
   );
