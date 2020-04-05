@@ -4,7 +4,7 @@
 }
 
 .container-header .content-header {
-  height: 64px;
+  height: 10vh;
   margin: 0 auto;
   display: flex;
   justify-content: center;
@@ -14,14 +14,21 @@
 .container-header .content-header nav {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.container-header .content-header nav div,
+.container-header .content-header nav p {
+  font-weight: bold;
+  color: #81259d;
+  display: inline;
+  margin: 10px;
+  font-size: 2rem;
 }
 
 .container-header .content-header nav p {
-  font-weight: bold;
-  color: #21bfd0;
-  display: inline;
-  margin: 10px;
-  font-size: 18px;
+  font-size: 1.2rem;
 }
 
 @media (max-width: 600px) {
