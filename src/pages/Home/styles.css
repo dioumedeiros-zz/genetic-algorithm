@@ -1,5 +1,5 @@
 .container {
-  height: 80vh;
+  height: 90vh;
   max-width: 800px;
   margin: 0 auto;
 
@@ -103,4 +103,26 @@
 
 .content .controls a {
   text-decoration: none;
+}
+
+.container .btn-execute {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+  margin: 0 15px;
+  background: linear-gradient(-90deg, #272142, #81259d);
+  color: #fff;
+  border: 1px solid #fff;
+  border-radius: 4px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container .btn-execute:hover {
+  background: #fff;
+  color: #81259d;
 }

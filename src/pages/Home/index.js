@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
 
 import Header from "../../components/Header";
@@ -10,7 +10,11 @@ const CityController = require("../../api/controller/CityController");
 export default function List() {
   const [city, setCity] = useState("");
   const [selectList, setSelectList] = useState([]);
-  const [selection, setSelection] = useState("T");
+  const [selection, setSelection] = useState("A");
+
+  useEffect(() => {
+    loadCities();
+  }, []);
 
   function handleAddCity() {
     CityController.store(city);
@@ -19,8 +23,11 @@ export default function List() {
   }
 
   function loadCities() {
-    const cities = localStorage.getItem("cities");
-    setSelectList(JSON.parse(cities));
+    const cities = JSON.parse(localStorage.getItem("cities"));
+
+    if (cities) {
+      setSelectList(cities);
+    }
   }
 
   return (
@@ -53,6 +60,7 @@ export default function List() {
           </div>
           <CityList filter={selection} />
         </div>
+        <button className="btn-execute">EXECUTAR ALGORITMO</button>
       </div>
     </>
   );
