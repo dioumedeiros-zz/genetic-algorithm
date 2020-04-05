@@ -1,0 +1,41 @@
+.container-header {
+  background: #f1f1f1;
+  padding: 0 30px;
+}
+
+.container-header .content-header {
+  height: 64px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-header .content-header nav {
+  display: flex;
+  align-items: center;
+}
+
+.container-header .content-header nav p {
+  font-weight: bold;
+  color: #21bfd0;
+  display: inline;
+  margin: 10px;
+  font-size: 18px;
+}
+
+@media (max-width: 600px) {
+  .container-header {
+    margin-bottom: 15px;
+  }
+
+  .container-header .content-header nav p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 400px) {
+  .container-header .content-header nav p {
+    font-size: 10px;
+  }
+}

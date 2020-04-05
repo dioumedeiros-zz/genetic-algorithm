@@ -1,0 +1,106 @@
+.container {
+  height: 80vh;
+  max-width: 800px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.container .register {
+  height: 100px;
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.container input {
+  background: #fff;
+  border: 0;
+  height: 40px;
+  width: 70%;
+  padding: 0 5px;
+  color: #455463;
+  margin: 0 10px;
+  border-bottom: 1px solid #455463;
+  border-bottom-style: dotted;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.container input:placeholder {
+  color: #455463;
+}
+
+.container .register button {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin: 0 15px;
+  background: #81259d;
+  color: #f1f1f1;
+  border: 1px solid #81259d;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.container .register button:hover {
+  background: #f1f1f1aa;
+  color: #81259d;
+}
+
+.content {
+  width: 100%;
+  background-color: #f1f1f1;
+  border-radius: 8px;
+}
+
+.content .controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+@media (max-width: 600px) {
+  .content .controls {
+    flex-direction: column;
+  }
+
+  .content .controls .select-task {
+    width: 90%;
+  }
+
+  .content .controls a {
+    width: 100%;
+  }
+
+  .content .controls a button {
+    width: 90%;
+    margin: 0 auto;
+  }
+}
+
+.content .controls .select-task {
+  background: #f1f1f1;
+  border: 0;
+  height: 40px;
+  padding: 0 5px;
+  color: #81259d;
+  margin: 20px 15px;
+  border: 1px solid #81259d;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.content .controls a {
+  text-decoration: none;
+}
