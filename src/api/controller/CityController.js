@@ -13,6 +13,56 @@ class CityController {
 
     localStorage.setItem("cities", JSON.stringify(cityList));
   }
+
+  update(cityRoutes) {
+    const cityList = JSON.parse(localStorage.getItem("cities"));
+    let currentFiltered = cityList.find((c) => c.id === cityRoutes.current.id);
+
+    if (currentFiltered.distance) {
+      let newDistancies = currentFiltered.distance.filter(
+        (d) => d.id !== cityRoutes.destiny.id
+      );
+      currentFiltered.distance = [...newDistancies, cityRoutes.destiny];
+
+      let newMerge = cityList.find((c) => c.id === cityRoutes.destiny.id);
+
+      if (newMerge.distance) {
+        let distancesMerge = newMerge.distance.filter(
+          (d) => d.id !== currentFiltered.id
+        );
+
+        newMerge.distance = [
+          ...distancesMerge,
+          { id: currentFiltered.id, time: cityRoutes.destiny.time },
+        ];
+      } else {
+        newMerge.distance = [];
+        newMerge.distance = [
+          ...newMerge.distance,
+          { id: currentFiltered.id, time: cityRoutes.destiny.time },
+        ];
+      }
+    } else {
+      currentFiltered.distance = [];
+      currentFiltered.distance = [
+        ...currentFiltered.distance,
+        cityRoutes.destiny,
+      ];
+
+      let newMerge = cityList.find((c) => c.id === cityRoutes.destiny.id);
+
+      newMerge.distance = [];
+      newMerge.distance = [
+        ...newMerge.distance,
+        { id: currentFiltered.id, time: cityRoutes.destiny.time },
+      ];
+    }
+
+    let newCities = cityList.filter((c) => c.id !== currentFiltered.id);
+    newCities = [...newCities, currentFiltered];
+
+    localStorage.setItem("cities", JSON.stringify(newCities));
+  }
 }
 
 module.exports = new CityController();
