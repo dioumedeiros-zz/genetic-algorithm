@@ -1,16 +1,19 @@
-import React from "react";
-import { MdDeleteForever, MdModeEdit } from "react-icons/md";
+import React, { useState } from "react";
 
-export default function Todo({ data, edit, exclude }) {
+export default function City({ current, destiny, addDistance }) {
+  const [time, setTime] = useState("");
   return (
     <>
-      <div>{data.task}</div>
-      <div>{data.done === "S" ? "Concluída" : "Não concluída"}</div>
-      <MdModeEdit size={20} color="#33b9c8" />
-      <MdDeleteForever
-        size={20}
-        color="#ff1a1ae8"
-        onClick={() => exclude(data)}
+      <div>{current && current.name}</div>
+      <div>{destiny && destiny.name}</div>
+      <input
+        type="text"
+        maxLength="3"
+        value={time}
+        onChange={(e) => setTime(e.target.value)}
+        onBlur={() =>
+          addDistance({ current, destiny: { id: destiny.id, time } })
+        }
       />
     </>
   );
