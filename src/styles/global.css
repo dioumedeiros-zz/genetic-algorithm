@@ -24,3 +24,9 @@ input,
 button {
   font-family: Roboto, sans-serif;
 }
+
+.Toastify__toast {
+  width: 100%;
+  font-weight: bold;
+  border-radius: 8px;
+}

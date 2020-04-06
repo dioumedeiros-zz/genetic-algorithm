@@ -1,5 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
-import { toast } from "react-toastify";
+import React, { useState, useEffect } from "react";
 import City from "../City";
 
 import "./styles.css";
