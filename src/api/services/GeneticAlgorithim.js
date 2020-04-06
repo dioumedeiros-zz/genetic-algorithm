@@ -1,8 +1,6 @@
-const { City } = require("../models/City");
-
 class GeneticAlgorithim {
-  constructor() {
-    this.cities = new City().cities;
+  constructor(cities) {
+    this.cities = cities;
     this.MUTATION = 1;
     this.POPULATION_SIZE = 20;
     this.GENERATIONS = 1000;
@@ -24,7 +22,7 @@ class GeneticAlgorithim {
     const found = this.cities.find((city) => city.id === currentCity.id);
     const distance = found.distance.find((f) => f.id === destinyCity.id);
 
-    return distance ? distance.time : 0;
+    return distance ? Number(distance.time) : 0;
   }
 
   fitness(subject) {
@@ -190,7 +188,7 @@ class GeneticAlgorithim {
 
       this.getBestDistance(bestWay);
     }
-    console.log("best ", this.best.allDistance);
+    console.log("best ", this.best);
 
     // const greatSolucion = population.find(p => p.allDistance === bestWay);
     // console.log("greatSolucion ", greatSolucion);
@@ -208,4 +206,4 @@ class GeneticAlgorithim {
   }
 }
 
-module.exports = { GeneticAlgorithim };
+module.exports = GeneticAlgorithim;
