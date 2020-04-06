@@ -44,7 +44,7 @@
   padding: 10px;
   margin: 0 15px;
   background: #81259d;
-  color: #f1f1f1;
+  color: #fff;
   border: 1px solid #81259d;
   border-radius: 4px;
   font-size: 14px;
@@ -53,13 +53,13 @@
 }
 
 .container .register button:hover {
-  background: #f1f1f1aa;
+  background: #fff;
   color: #81259d;
 }
 
 .content {
   width: 100%;
-  background-color: #f1f1f1;
+  background-color: #fff;
   border-radius: 8px;
 }
 
@@ -74,7 +74,7 @@
     flex-direction: column;
   }
 
-  .content .controls .select-task {
+  .content .controls .select {
     width: 90%;
   }
 
@@ -88,8 +88,8 @@
   }
 }
 
-.content .controls .select-task {
-  background: #f1f1f1;
+.content .controls .select {
+  background: #fff;
   border: 0;
   height: 40px;
   padding: 0 5px;
@@ -113,7 +113,7 @@
   align-items: center;
   padding: 10px;
   margin: 0 15px;
-  background: linear-gradient(-90deg, #272142, #81259d);
+  background: transparent;
   color: #fff;
   border: 1px solid #fff;
   border-radius: 4px;

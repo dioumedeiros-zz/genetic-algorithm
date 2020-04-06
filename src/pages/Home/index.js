@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { MdAdd } from "react-icons/md";
+import { toast } from "react-toastify";
 
 import Header from "../../components/Header";
 import CityList from "../../components/CityList";
 import "./styles.css";
 
 const CityController = require("../../api/controller/CityController");
+const GeneticAlgorithim = require("../../api/services/GeneticAlgorithim");
 
 export default function List() {
   const [city, setCity] = useState("");
@@ -30,6 +32,29 @@ export default function List() {
     }
   }
 
+  function handleExecute() {
+    const cities = JSON.parse(localStorage.getItem("cities"));
+
+    if (isValid(cities)) {
+      const algorithm = new GeneticAlgorithim(cities);
+      algorithm.initialize();
+    }
+  }
+
+  function isValid(cities) {
+    cities.forEach((city) => {
+      city.distance.forEach((dist) => {
+        if (!dist.time) {
+          toast.error(
+            `Distância inválida. Verifique os destinos da cidade ${city.name}`
+          );
+          return false;
+        }
+      });
+    });
+    return true;
+  }
+
   return (
     <>
       <Header />
@@ -48,7 +73,7 @@ export default function List() {
         <div className="content">
           <div className="controls">
             <select
-              className="select-task"
+              className="select"
               onChange={(e) => setSelection(e.target.value)}
             >
               {selectList.map((item) => (
@@ -60,7 +85,9 @@ export default function List() {
           </div>
           <CityList filter={selection} />
         </div>
-        <button className="btn-execute">EXECUTAR ALGORITMO</button>
+        <button className="btn-execute" onClick={handleExecute}>
+          EXECUTAR ALGORITMO
+        </button>
       </div>
     </>
   );
