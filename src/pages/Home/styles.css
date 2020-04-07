@@ -69,6 +69,16 @@
   align-items: center;
 }
 
+.content .controls .city-selected {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.content .controls .generation input {
+  width: 100px;
+}
+
 @media (max-width: 600px) {
   .content .controls {
     flex-direction: column;
