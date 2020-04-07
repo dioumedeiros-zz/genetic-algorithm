@@ -14,6 +14,15 @@ export default function City({ current, destiny, addDistance }) {
     }
   }, [current, destiny]);
 
+  function handleTime(e) {
+    if (Number(e.target.value)) {
+      console.log(Number(e.target.value));
+      setTime(e.target.value);
+    } else {
+      setTime(0);
+    }
+  }
+
   return (
     <>
       <div>{current && current.name}</div>
@@ -22,7 +31,7 @@ export default function City({ current, destiny, addDistance }) {
         type="text"
         maxLength="3"
         value={time}
-        onChange={(e) => setTime(e.target.value)}
+        onChange={handleTime}
         onBlur={() =>
           addDistance({ current, destiny: { id: destiny.id, time } })
         }
