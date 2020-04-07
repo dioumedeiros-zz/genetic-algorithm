@@ -63,6 +63,18 @@ class CityController {
 
     localStorage.setItem("cities", JSON.stringify(newCities));
   }
+
+  delete(data) {
+    const cityList = JSON.parse(localStorage.getItem("cities"));
+
+    let newCities = cityList.filter((c) => c.id !== data.id);
+    for (const city of newCities) {
+      if (city.name === data.name);
+      city.distance = city.distance.filter((c) => c.id !== data.id);
+    }
+
+    localStorage.setItem("cities", JSON.stringify(newCities));
+  }
 }
 
 module.exports = new CityController();
