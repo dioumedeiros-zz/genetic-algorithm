@@ -1,0 +1,84 @@
+.popup-content {
+  border: 0;
+  border-radius: 10px;
+}
+
+header {
+  height: 80px;
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+  font-weight: 600;
+  color: #81259d;
+}
+
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style: none;
+}
+
+ul div,
+ul .last {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: #81259d;
+}
+
+ul div:last-child svg {
+  display: none;
+}
+
+.grid-modal {
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.grid-modal .title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-right: 20px;
+  color: #81259d;
+}
+
+hr {
+  margin: 25px 15px;
+}
+
+.grid-modal .value {
+  font-size: 1.2em;
+  font-weight: 700;
+  color: #81259d;
+}
+
+.control {
+  height: 50px;
+  display: flex;
+  float: right;
+  align-items: center;
+  margin: 5px;
+}
+
+.control button {
+  height: 36px;
+  width: 100px;
+  background: transparent;
+  border: 1px solid #81259d;
+  border-radius: 4px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #81259d;
+  cursor: pointer;
+}
+
+.control button:hover {
+  color: #fff;
+  border: 1px solid #81259d;
+  background: #81259d;
+}
