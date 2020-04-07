@@ -1,7 +1,7 @@
 class GeneticAlgorithim {
   constructor(cities) {
     this.cities = cities;
-    this.MUTATION = 1;
+    this.MUTATION = 10;
     this.POPULATION_SIZE = 20;
     this.GENERATIONS = 1000;
     this.best = [];
@@ -45,30 +45,16 @@ class GeneticAlgorithim {
   }
 
   rouletteWheel(population) {
-    let i = 0;
-    let totalSum = 0;
-    let parent = -1;
+    let superPopulation = [];
 
-    let totalProbability = population.reduce(
-      (total, element) => total + 1 / element.allDistance,
-      0
-    );
-
-    population.forEach((el) => {
-      let probability = 1 / el.allDistance;
-
-      el.probability = probability / totalProbability;
-    });
-
-    const random = Math.random();
-
+    const betters = Math.floor(population.length / 2);
     this.sortPopulation(population);
-    while (i < population.length && totalSum < random) {
-      totalSum += population[i].probability;
-      parent += 1;
-      i += 1;
+    for (let index = 0; index < betters; index++) {
+      superPopulation.push(population[index]);
     }
-    return parent;
+
+    const randomChoise = Math.floor(Math.random() * betters);
+    return superPopulation[randomChoise];
   }
 
   crossover(firstGene, secondGene) {
@@ -139,7 +125,10 @@ class GeneticAlgorithim {
     let population = [];
     let subject;
     while (population.length < this.POPULATION_SIZE) {
-      subject = { chromosome: this.createChromosome(this.cities) };
+      subject = {
+        chromosome: this.createChromosome(this.cities),
+        generation: 1,
+      };
       population.push(subject);
     }
 
@@ -148,23 +137,18 @@ class GeneticAlgorithim {
     });
 
     this.best = population[0];
-    console.log("Initial ", this.best.allDistance);
-
-    //
 
     this.sortPopulation(population);
     for (let i = 1; i <= this.GENERATIONS; i++) {
       let anotherPopulation = [];
       for (let index = 0; index < this.POPULATION_SIZE; index += 2) {
-        //roleta
+        //Seleção
         let firstParent = this.rouletteWheel(population);
         let secondParent = this.rouletteWheel(population);
-
         let childs = this.crossover(
-          population[firstParent].chromosome,
-          population[secondParent].chromosome
+          firstParent.chromosome,
+          secondParent.chromosome
         );
-
         anotherPopulation = [
           ...anotherPopulation,
           this.transform(childs[0].chromosome),
@@ -180,15 +164,17 @@ class GeneticAlgorithim {
 
       population.forEach((element) => {
         this.fitness(element);
+        element.generation = i;
       });
 
       this.sortPopulation(population);
       let bestWay = population[0];
-      console.log("bestWay ", bestWay.allDistance);
 
       this.getBestDistance(bestWay);
     }
-    console.log("best ", this.best);
+
+    console.log("bestWay ", this.best);
+    return this.best;
 
     // const greatSolucion = population.find(p => p.allDistance === bestWay);
     // console.log("greatSolucion ", greatSolucion);
