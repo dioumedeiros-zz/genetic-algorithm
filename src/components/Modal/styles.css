@@ -43,7 +43,7 @@ ul div:last-child svg {
 .grid-modal .title {
   font-size: 1.3rem;
   font-weight: 700;
-  margin-right: 20px;
+  margin-right: 15px;
   color: #81259d;
 }
 
@@ -55,6 +55,7 @@ hr {
   font-size: 1.2em;
   font-weight: 700;
   color: #81259d;
+  margin-right: 50px;
 }
 
 .control {

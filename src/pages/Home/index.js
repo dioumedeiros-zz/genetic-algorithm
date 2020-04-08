@@ -46,12 +46,12 @@ export default function List() {
     }
   }
 
-  async function handleExecute() {
+  function handleExecute() {
     const cities = JSON.parse(localStorage.getItem("cities"));
 
     if (isValid(cities)) {
-      const algorithm = new GeneticAlgorithim(cities);
-      const bestRoute = await algorithm.initialize();
+      const algorithm = new GeneticAlgorithim(cities, generation);
+      const bestRoute = algorithm.initialize();
       if (bestRoute) {
         setSolution(bestRoute);
         setOpen(true);

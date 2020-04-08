@@ -25,6 +25,8 @@ export default function Modal({ open, data, close }) {
           <div className="grid-modal">
             <span className="title">Distância</span>
             <span className="value">{data.allDistance}</span>
+            <span className="title">Gerações</span>
+            <span className="value">{data.generation}</span>
           </div>
           <div className="control">
             <button className="close" onClick={close}>
