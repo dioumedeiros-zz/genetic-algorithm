@@ -3,7 +3,7 @@ import City from "../City";
 
 import "./styles.css";
 
-const CityController = require("../../api/controller/CityController");
+import CityController from "../../api/controller/CityController";
 
 export default function CityList({ filter }) {
   const [routes, setRoutes] = useState([]);
@@ -21,7 +21,7 @@ export default function CityList({ filter }) {
   }, [filter]);
 
   function handleDistance(data) {
-    new CityController.init().update(data);
+    new CityController().update(data);
   }
 
   return (

@@ -7,8 +7,8 @@ import CityList from "../../components/CityList";
 import Modal from "../../components/Modal";
 import "./styles.css";
 
-const CityController = require("../../api/controller/CityController");
-const GeneticAlgorithim = require("../../api/services/GeneticAlgorithim");
+import CityController from "../../api/controller/CityController";
+import GeneticAlgorithim from "../../api/services/GeneticAlgorithim";
 
 export default function List() {
   const [city, setCity] = useState("");
@@ -25,7 +25,7 @@ export default function List() {
   function handleAddCity() {
     const cities = JSON.parse(localStorage.getItem("cities"));
     if (!cities || cities.length < 10) {
-      new CityController.init().store(city);
+      new CityController().store(city);
       loadCities();
       setCity("");
     } else {
@@ -50,7 +50,7 @@ export default function List() {
     const cities = JSON.parse(localStorage.getItem("cities"));
 
     if (isValid(cities)) {
-      const algorithm = new GeneticAlgorithim.init(cities, generation);
+      const algorithm = new GeneticAlgorithim(cities, generation); //new GeneticAlgorithim.init(cities, generation);
 
       const bestRoute = algorithm.initialize();
       if (bestRoute) {
@@ -83,7 +83,7 @@ export default function List() {
   function handleDelete() {
     const cities = JSON.parse(localStorage.getItem("cities"));
     const citySelected = cities.find((c) => c.id === selection);
-    new CityController.init().delete(citySelected);
+    new CityController().delete(citySelected);
     loadCities();
   }
 

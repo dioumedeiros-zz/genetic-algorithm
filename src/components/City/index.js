@@ -16,7 +16,6 @@ export default function City({ current, destiny, addDistance }) {
 
   function handleTime(e) {
     if (Number(e.target.value)) {
-      console.log(Number(e.target.value));
       setTime(e.target.value);
     } else {
       setTime(0);
