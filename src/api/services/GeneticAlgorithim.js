@@ -179,4 +179,4 @@ class GeneticAlgorithim {
   }
 }
 
-module.exports = GeneticAlgorithim;
+exports.init = GeneticAlgorithim;

@@ -2,6 +2,7 @@
   "name": "genetic-algorithm",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://dioumedeiros.github.io/genetic-algorithm/",
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -14,6 +15,7 @@
     "reactjs-popup": "^1.5.0"
   },
   "scripts": {
+    "deploy": "yarn build && ./node_modules/.bin/gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

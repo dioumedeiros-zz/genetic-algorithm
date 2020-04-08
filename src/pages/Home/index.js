@@ -25,7 +25,7 @@ export default function List() {
   function handleAddCity() {
     const cities = JSON.parse(localStorage.getItem("cities"));
     if (!cities || cities.length < 10) {
-      CityController.store(city);
+      new CityController.init().store(city);
       loadCities();
       setCity("");
     } else {
@@ -50,7 +50,8 @@ export default function List() {
     const cities = JSON.parse(localStorage.getItem("cities"));
 
     if (isValid(cities)) {
-      const algorithm = new GeneticAlgorithim(cities, generation);
+      const algorithm = new GeneticAlgorithim.init(cities, generation);
+
       const bestRoute = algorithm.initialize();
       if (bestRoute) {
         setSolution(bestRoute);
@@ -82,7 +83,7 @@ export default function List() {
   function handleDelete() {
     const cities = JSON.parse(localStorage.getItem("cities"));
     const citySelected = cities.find((c) => c.id === selection);
-    CityController.delete(citySelected);
+    new CityController.init().delete(citySelected);
     loadCities();
   }
 

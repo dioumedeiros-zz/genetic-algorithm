@@ -77,4 +77,4 @@ class CityController {
   }
 }
 
-module.exports = new CityController();
+exports.init = CityController;

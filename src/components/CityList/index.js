@@ -21,7 +21,7 @@ export default function CityList({ filter }) {
   }, [filter]);
 
   function handleDistance(data) {
-    CityController.update(data);
+    new CityController.init().update(data);
   }
 
   return (
