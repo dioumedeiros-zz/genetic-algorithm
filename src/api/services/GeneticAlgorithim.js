@@ -1,9 +1,9 @@
 class GeneticAlgorithim {
-  constructor(cities) {
+  constructor(cities, generation) {
     this.cities = cities;
-    this.MUTATION = 10;
+    this.MUTATION = 2;
     this.POPULATION_SIZE = 20;
-    this.GENERATIONS = 1000;
+    this.GENERATIONS = generation;
     this.best = [];
   }
 
@@ -44,7 +44,7 @@ class GeneticAlgorithim {
     subject.allDistance = totDistance;
   }
 
-  rouletteWheel(population) {
+  selection(population) {
     let superPopulation = [];
 
     const betters = Math.floor(population.length / 2);
@@ -116,7 +116,8 @@ class GeneticAlgorithim {
   }
 
   getBestDistance(bestWay) {
-    if (bestWay.allDistance <= this.best.allDistance) {
+    if (bestWay.allDistance < this.best.allDistance) {
+      bestWay.generation = this.GENERATIONS;
       this.best = bestWay;
     }
   }
@@ -143,12 +144,14 @@ class GeneticAlgorithim {
       let anotherPopulation = [];
       for (let index = 0; index < this.POPULATION_SIZE; index += 2) {
         //Seleção
-        let firstParent = this.rouletteWheel(population);
-        let secondParent = this.rouletteWheel(population);
+        let firstParent = this.selection(population);
+        let secondParent = this.selection(population);
+
         let childs = this.crossover(
           firstParent.chromosome,
           secondParent.chromosome
         );
+
         anotherPopulation = [
           ...anotherPopulation,
           this.transform(childs[0].chromosome),
@@ -164,7 +167,6 @@ class GeneticAlgorithim {
 
       population.forEach((element) => {
         this.fitness(element);
-        element.generation = i;
       });
 
       this.sortPopulation(population);
@@ -173,22 +175,7 @@ class GeneticAlgorithim {
       this.getBestDistance(bestWay);
     }
 
-    console.log("bestWay ", this.best);
     return this.best;
-
-    // const greatSolucion = population.find(p => p.allDistance === bestWay);
-    // console.log("greatSolucion ", greatSolucion);
-
-    // population.forEach(p => {
-    //   if (bestWay.allDistance < this.best) {
-    //     this.best = bestWay.allDistance;
-    //   }
-    // })
-    // console.log(
-    //   `Generation: ${this.GENERATIONS} | Time: ${this.best} | Chromssome: ${
-    //     bestWay
-    //   }`
-    // );
   }
 }
 
