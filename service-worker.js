@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/genetic-algorithm/precache-manifest.de816064b2eb281a9680b4b92bb964d8.js"
+  "/genetic-algorithm/precache-manifest.5894e7e18cf5faf35ec6892f8ba2dc0c.js"
 );
 
 self.addEventListener('message', (event) => {
