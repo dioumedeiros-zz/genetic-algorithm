@@ -77,4 +77,4 @@ class CityController {
   }
 }
 
-exports.init = CityController;
+export default CityController;

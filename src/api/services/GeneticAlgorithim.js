@@ -179,4 +179,4 @@ class GeneticAlgorithim {
   }
 }
 
-exports.init = GeneticAlgorithim;
+export default GeneticAlgorithim;
