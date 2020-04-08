@@ -1,5 +1,10 @@
 <h1 align="center">Algoritmo genético</h1>
 <p align="center">Resolução do problema do Caixeiro Viajante</p>
+<p align="center">
+  <a aria-label="Github Pages" href="https://dioumedeiros.github.io/genetic-algorithm/">
+    <img src="https://img.shields.io/badge/genetic-algorithm-blueviolet" />
+  </a>
+</p>
 
 ![](github/genetico.png)
 
