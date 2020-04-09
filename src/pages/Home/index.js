@@ -68,14 +68,21 @@ export default function List() {
         );
         return false;
       }
-      city.distance.forEach((dist) => {
-        if (!dist.time) {
-          toast.error(
-            `Distância inválida. Verifique os destinos da cidade ${city.name}`
-          );
-          return false;
-        }
-      });
+      if (city.distance.length === cities.length - 1) {
+        city.distance.forEach((dist) => {
+          if (!dist.time) {
+            toast.error(
+              `Distância inválida. Verifique os destinos da cidade ${city.name}`
+            );
+            return false;
+          }
+        });
+      } else {
+        toast.error(
+          `Distância inválida. Verifique os destinos da cidade ${city.name}`
+        );
+        return false;
+      }
     }
     return true;
   }
